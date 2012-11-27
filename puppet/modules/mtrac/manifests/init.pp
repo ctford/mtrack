@@ -11,4 +11,16 @@ class mtrac {
     ensure => present,
     provider => pip,
   }
+
+  package { "south":
+    ensure => present,
+    provider => pip,
+  }
+
+  $misc = ["python-dateutil", "pytz", "virtualenv", "xlrd", "python-memcached"]
+
+  package { $misc:
+    ensure => present,
+    provider => pip,
+  }
 }
