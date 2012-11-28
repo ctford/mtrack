@@ -20,3 +20,4 @@ django-digest
 python-memcached
 django-celery
 xlwt
+django-picklefield==0.1.9
