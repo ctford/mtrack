@@ -3,24 +3,18 @@ class mtrac {
     ensure => present,
   }
 
-  $django = ["django", "django-extensions", "django-nose", "django-tablib",
-             "django-uni-form", "djappsettings", "django-mptt", "django-guardian",
-             "django-digest", "django-celery"]
-
-  package { $django:
+  package { "python-dev":
     ensure => present,
-    provider => pip,
   }
 
-  package { "south":
-    ensure => present,
-    provider => pip,
+  exec { "pip-modules":
+    require => [Package["python-pip"], Package["python-dev"]],
+    command => "/usr/bin/pip install -r /vagrant/pip-requires.txt",
+    timeout => 0,
   }
 
-  $misc = ["python-dateutil", "pytz", "virtualenv", "xlrd", "python-memcached"]
-
-  package { $misc:
-    ensure => present,
-    provider => pip,
-  }
+#  exec { "runserver":
+#    require => Exec["pip-modules"],
+#    command => "/vagrant/mtrack_project/manage.py runserver",
+#  }
 }
